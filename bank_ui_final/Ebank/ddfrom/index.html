@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!---Coding By CodingLab | www.codinglabweb.com--->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--<t
+itle>Registration Form in HTML CSS</title>-->
+    <!---Custom CSS File--->
+    <link rel="stylesheet" href="../ddfrom/ddform.css" />
+  </head>
+  <body onload="generateId()">
+    <section class="container">
+      <header>DD Request</header>
+      <form action="#" class="form" id="ddform">
+        <div class="input-box">
+          <label>Request id</label>
+          <input type="text" placeholder="Enter your 10 digits Register Id" id="request" name="requestid" required />
+        </div>
+        <div class="input-box">
+            <label>Account Number</label>
+            <input type="text" placeholder="Enter your 10 digits Account Number" id="account" name="accountnumber" required />
+          </div>
+          <div class="input-box">
+            <label>DD Number</label>
+            <!-- <input type="number"  id="accnum" placeholder="Enter Account Number" name="accountnumber" value = "${accountnumber}" pattern="[0-9]{1,10}" required /> -->
+            <input type="number" placeholder="Enter your DD Number" id="ddnum"  value = "${ddnumber}" name="ddnumber" required />
+          </div>
+        <div class="input-box">
+            <label>Infavor Of</label>
+            <input type="text" placeholder="Enter your Infavor Of" id="infavor" name="infavof" required />
+          </div>
+        <div class="input-box">
+          <label>Payable at</label>
+          <input type="text" placeholder="Enter your Payable at" id="Payable" name="payableat" required />
+        </div>
+        <div class="column">
+          <div class="input-box">
+            <label>Commission Amount</label>
+            <input type="number" placeholder="Commission Amount" id="Commission" name="commisionamount" required />
+          </div>
+          <div class="input-box">
+            <label>Amount</label>
+            <input type="number" placeholder="Amount" id="Amount" name="amount" required />
+          </div>
+          <div class="input-box">
+            <label>Date</label>
+            <input type="date" placeholder="Date" id="date" name="date" required />
+          </div>
+        </div>
+        
+        </div>
+    </div>
+    <div class="input-box address">
+      <label>Status</label>
+      <div class="column">
+        </div>
+        <input type="text" placeholder="Enter your Status" id="text" name="status" required />
+      </div>
+      
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+
+<script>
+        function generateId(){
+    var regId = Math.floor(1000000000 + Math.random() * 9000000000);
+   
+
+    const regIdElement = document.getElementById("ddnum").value=regId;
+    
+    console.log(regId);
+    
+}
+    document.getElementById('ddform').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the form from submitting normally
+  
+      // Get form values
+      const requestData = {
+        requestid: document.getElementById('request').value,
+        accountnumber: document.getElementById('account').value,
+        ddnumber: document.getElementById('ddnum').value,
+        infavof: document.getElementById('infavor').value,
+        payableat: document.getElementById('Payable').value,
+        commisionamount: document.getElementById('Commission').value,
+        amount: document.getElementById('Amount').value,
+        date: document.getElementById('date').value,
+        status: document.getElementById('text').value
+      };
+  
+      // POST request using fetch
+      fetch('http://localhost:8080/ddfrom/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(requestData),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        // Optionally, you can display a success message or redirect the user
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Optionally, you can display an error message to the user
+      });
+    });
+  </script>
+  
+</script>
+<!-- <script src="ddform.js"></script> -->
+</body>
+</html>

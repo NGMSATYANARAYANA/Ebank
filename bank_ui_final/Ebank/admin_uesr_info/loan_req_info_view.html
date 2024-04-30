@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckRequest Details</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .accept {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .reject {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+        nav {
+      background-color:black;
+      overflow: hidden;
+      
+    }
+    nav a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration:none;
+      font-size: large;
+      
+    
+    }
+    nav a:hover {
+      background-color: red;
+      color:skyblue;
+    }
+    table, th, td {
+  border: 1px solid black;
+}
+table{
+  width: 100%;
+}
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+
+
+        footer { 
+    background-color:rgba(12, 11, 11, 0.87); 
+    color: #fff; 
+    text-align: center; 
+    padding: 20px 0; 
+    margin-top: 40px;
+  
+  } 
+  .container { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+    height: 50px;
+   margin-bottom: 130px;
+  } 
+
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../admin_uesr_info/ac_req_view.html" onclick="fetchAccountRequests()">A/c Requests.</a>
+       <a href="../admin_uesr_info/reg_info.html"> Registration_info</a>
+        <a href="../admin_uesr_info/ac_ifo_view.html">A/c Info.</a>
+        <a href="../admin_uesr_info/login_info_view.html">Login Info.</a>
+        <a href="../admin_uesr_info/transaction_view.html">Transaction Info.</a>
+        <a href="../admin_uesr_info/dd_req_info_view.html">DD Request Info.</a>
+        <a href="../admin_uesr_info/check_req_info.html">Cheque Request Info.</a>
+        <a href="../admin_uesr_info/loan_req_info_view.html">Loan Request Info.</a>
+      </nav>
+<table>
+    <thead>
+        <tr>
+            
+           <th>RequsetId</th>
+            <th>account number</th>
+            <th>Card_number</th>
+            <th>First_name</th>
+            <th>Second_name</th>
+            <th>Profession</th>
+            <th>Annual_income</th>
+            <th>residence_phonr_number</th>
+            <th>Office_Phone_number</th>
+            <th>House_name</th>
+            <th>City</th>
+            <th>Pin</th>
+            <th>email_id</th>
+            <th>Purpose</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody id='transactionTableBody'>
+        <!-- Data rows will be populated dynamically -->
+    </tbody>
+</table>
+
+ <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Fetch data from the API and populate the table
+        fetch('http://localhost:8080/loanrequests')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Get the table body element
+                const tableBody = document.getElementById('transactionTableBody');
+
+                console.log(data);
+                // Clear existing table rows
+                tableBody.innerHTML = '';
+
+                // Loop through the data and create table rows
+                data.forEach(transaction => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${transaction.requestid}</td>
+                        <td>${transaction.account}</td>
+                        <td>${transaction.cardnumber}</td>
+                        <td>${transaction.firstname}</td>
+                        <td>${transaction.secondname}</td>
+                        <td>${transaction.profession}</td>
+                        <td>${transaction.annualincome}</td>
+                        <td>${transaction.residencephonenumber}</td>
+                        <td>${transaction.officephonenumber}</td>
+                        <td>${transaction.housename}</td>
+                        <td>${transaction.city}</td>
+                        <td>${transaction.pin}</td>
+                        <td>${transaction.emailid}</td>
+                        <td>${transaction.purpose}</td>
+                        <td>${transaction.statues}</td>
+
+                        <td>
+                            <button class="accept">Accept</button>
+                            <button class="reject">Reject</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+</script> 
+
+
+
+</body>
+</html

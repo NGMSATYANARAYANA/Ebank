@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Info Details</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .accept {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .reject {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+        nav {
+            background-color:black;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration:none;
+            font-size: large;
+        }
+        nav a:hover {
+            background-color: red;
+            color: skyblue;
+        }
+        footer { 
+            background-color: rgba(12, 11, 11, 0.87); 
+            color: #fff; 
+            text-align: center; 
+            padding: 20px 0; 
+            margin-top: 40px;
+        } 
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            height: 50px;
+            margin-bottom: 130px;
+        } 
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../admin_uesr_info/ac_req_view.html" onclick="fetchAccountRequests()">A/c Requests</a>
+        <a href="../admin_uesr_info/reg_info.html">Registration Info</a>
+        <a href="../admin_uesr_info/ac_ifo_view.html">A/c Info</a>
+        <a href="../admin_uesr_info/login_info_view.html">Login Info</a>
+        <a href="../admin_uesr_info/transaction_view.html">Transaction Info</a>
+        <a href="../admin_uesr_info/dd_req_info_view.html">DD Request Info</a>
+        <a href="../admin_uesr_info/check_req_info.html">Cheque Request Info</a>
+        <a href="../admin_uesr_info/loan_req_info_view.html">Loan Request Info</a>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Register ID</th>
+                <th>Request ID</th>
+                <th>First Name</th>
+                <th>Second Name</th>
+                <th>Sex</th>
+                <th>Email ID</th>
+                <th>Residence Phone Number</th>
+                <th>Office Phone Number</th>
+                <th>House Name</th>
+                <th>City</th>
+                <th>Age</th>
+                <th>Country</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id='transactionTableBody'>
+            <!-- Data rows will be populated dynamically -->
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fetch data from the API and populate the table
+            fetch('http://localhost:8080/UserRequest/ureqest')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Get the table body element
+                    const tableBody = document.getElementById('transactionTableBody');
+
+                    console.log(data);
+                    // Clear existing table rows
+                    tableBody.innerHTML = '';
+
+                    // Loop through the data and create table rows
+                    data.forEach(transaction => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${transaction.registerid}</td>
+                            <td>${transaction.requestid}</td>
+                            <td>${transaction.firstname}</td>
+                            <td>${transaction.secondname}</td>
+                            <td>${transaction.sex}</td>
+                            <td>${transaction.emailid}</td>
+                            <td>${transaction.residencephonenumber}</td>
+                            <td>${transaction.officephonenumber}</td>
+                            <td>${transaction.housename}</td>
+                            <td>${transaction.city}</td>
+                            <td>${transaction.age}</td>
+                            <td>${transaction.country}</td>
+                        `;
+
+                        if(transaction.status == "A"){
+                            const appr = `<td>Approved</td>`
+                            row.innerHTML = row.innerHTML+appr;
+                        } else if(transaction.status == "R"){
+                            const rej = `<td>Rejected</td>`
+                            row.innerHTML = row.innerHTML+rej;
+                        } else {
+                            const b1 = `<td>
+                                <button class="accept" onclick="approveRegistration(${transaction.registerid})">Accept</button>
+                                <button class="reject" onclick="rejectRegistration(${transaction.registerid})">Reject</button>
+                            </td>`
+
+                            row.innerHTML = row.innerHTML+b1;
+                        } 
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+
+
+        function approveRegistration(id){
+            fetch('http://localhost:8080/UserRequest/approve', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin':'*'
+                },
+                body: JSON.stringify({
+                    regId: id,
+                    action: "A",
+                }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                } else {
+                    alert("Registration Approved Successfully. Email Notification sent.");
+                }
+            })
+            .then(data => {
+                console.log('Success:', data);
+                // Optionally, do something with the response data
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Optionally, handle errors
+            });
+        }
+
+        function rejectRegistration(id){
+            fetch('http://localhost:8080/UserRequest/reject', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin':'*'
+                },
+                body: JSON.stringify({
+                    regId: id,
+                    action: "R",
+                }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                } else {
+                    alert("Registration Rejected. Email Notification sent.");
+                }
+            })
+            .then(data => {
+                console.log('Success:', data);
+                // Optionally, do something with the response data
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Optionally, handle errors
+            });
+        }
+    </script>
+
+</body>
+</html>

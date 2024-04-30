@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckRequest Details</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .accept {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            width: 100%;
+        }
+        .reject {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            width: 100%
+        }
+
+        nav {
+      background-color:black;
+      overflow: hidden;
+      width: 100%;
+      position: fixed;
+    }
+    nav a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration:none;
+      font-size: large;
+      
+    
+    }
+    nav a:hover {
+      background-color: red;
+      color:skyblue;
+    }
+    table, th, td {
+  border: 1px solid black;
+}
+
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+
+
+        footer { 
+    background-color:rgba(12, 11, 11, 0.87); 
+    color: #fff; 
+    text-align: center; 
+    padding: 20px 0; 
+    margin-top: 40px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+  
+  } 
+  .container { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+    height: 50px;
+   margin-bottom: 130px;
+  } 
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../admin_uesr_info/ac_req_view.html" onclick="fetchAccountRequests()">A/c Requests.</a>
+       <a href="../admin_uesr_info/reg_info.html"> Registration_info</a>
+        <a href="../admin_uesr_info/ac_ifo_view.html">A/c Info.</a>
+        <a href="../admin_uesr_info/login_info_view.html">Login Info.</a>
+        <a href="../admin_uesr_info/transaction_view.html">Transaction Info.</a>
+        <a href="../admin_uesr_info/dd_req_info_view.html">DD Request Info.</a>
+        <a href="../admin_uesr_info/check_req_info.html">Cheque Request Info.</a>
+        <a href="../admin_uesr_info/loan_req_info_view.html">Loan Request Info.</a>
+      </nav>
+<br>
+<br>
+<br><br>
+<table>
+    <thead>
+        <tr>
+            
+                         <th>id</th>
+                        <th>status</th>
+                        <th>accountexisting</th>
+                        <th>accountnumber</th>
+                        <th>age</th>
+                        <th>branch</th>
+                        <th>cardnumber</th>
+                        <th>city</th>
+                        <th>country</th>
+                        <th>emailid</th>
+                        <th>endtime</th>
+                        <th>firstname</th>
+                        <th>housenumber</th>
+                        <th>officephonenumber</th>
+                        <th>residencephonenumber</th>
+                        <th>secondname</th>
+                        <th>secretanswer</th>
+                        <th>sex</th>
+                        <th>starttime</th>
+
+        </tr>
+    </thead>
+    
+    <tbody id="tableBody">
+        <!-- Data rows will be populated dynamically -->
+    </tbody>
+</table>
+
+<!-- <img src="../Home/home.jpg" style="width: 60%;" > -->
+
+<footer> 
+  <div class="container"> 
+    <br>
+    <p>&copy; 
+      
+      2024 US Bank. All rights reserved.
+
+    </p> 
+  </div>
+   
+</footer>
+
+<script>
+    
+    document.addEventListener("DOMContentLoaded", function() {
+function sendEmail(data) {
+            // Here you would typically make an API call to your server to send the email
+            // Replace 'YOUR_SERVER_ENDPOINT' with your actual server endpoint
+            fetch('http://localhost:8080/emailaccount/accept', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin':'*'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error sending email');
+                }
+                // console.log('Email sent successfully');
+                alert("Email sent successfully");
+            })
+            .catch(error => console.error('Error sending email:', error));
+        }
+
+        function sendEmailReject(data) {
+            // Here you would typically make an API call to your server to send the email
+            // Replace 'YOUR_SERVER_ENDPOINT' with your actual server endpoint
+            fetch('http://localhost:8080/emailaccount/reject', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin':'*'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error sending email');
+                }
+               // console.log('Email sent successfully');
+               alert("Email sent successfully");
+            })
+            .catch(error => console.error('Error sending email:', error));
+        }
+
+
+       
+        // Fetch data from the API and populate the table
+        fetch('http://localhost:8080/accountRequest')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const tableBody = document.getElementById('tableBody');
+
+                console.log(data);
+                // Clear existing table rows
+                tableBody.innerHTML = '';
+
+                // Loop through the data and create table rows
+                data.forEach(transaction => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                    <td>${transaction.id}</td>
+                        <td>${transaction.status}</td>
+                        <td>${transaction.accountexisting}</td>
+                        <td>${transaction.accountnumber}</td>
+                        <td>${transaction.age}</td>
+                        <td>${transaction.branch}</td>
+                        <td>${transaction.cardnumber}</td>
+                        <td>${transaction.city}</td>
+                        <td>${transaction.country}</td>
+                        <td>${transaction.emailid}</td>
+                        <td>${transaction.endtime}</td>
+                        <td>${transaction.firstname}</td>
+                        <td>${transaction.housenumber}</td>
+                        <td>${transaction.officephonenumber}</td>
+                        <td>${transaction.residencephonenumber}</td>
+                        <td>${transaction.secondname}</td>
+                        <td>${transaction.secretanswer}</td>
+                        <td>${transaction.sex}</td>
+                        <td>${transaction.starttime}</td>
+
+                            <button class="accept">Accept</button>
+                            <button class="reject">Reject</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+</script>
+
+</body>
+</html>

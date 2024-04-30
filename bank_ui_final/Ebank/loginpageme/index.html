@@ -1,0 +1,220 @@
+ <!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Login Page</title> 
+    <style> 
+/*        
+       body{ 
+            font-family: Arial, sans-serif; 
+            background-color: #f2f2f2; 
+            margin: 0; 
+            padding: 0; 
+        }  */
+ 
+        .login-container { 
+            width: 300px; 
+            margin: 100px auto; 
+            background-color: #fff; 
+            padding: 20px; 
+            border-radius: 5px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        } 
+ 
+        .login-container h2 { 
+            margin-bottom: 20px; 
+            text-align: center; 
+            color: #333; 
+        } 
+ 
+        .login-container input[type="text"], 
+        .login-container input[type="password"] { 
+            width: calc(100% - 20px); 
+            padding: 10px; 
+            margin-bottom: 20px; 
+            border: 1px solid #ccc; 
+            border-radius: 3px; 
+        } 
+ 
+        .login-container input[type="submit"] { 
+            width: 100%; 
+            padding: 10px; 
+            border: none; 
+            border-radius: 3px; 
+            background-color: #007bff; 
+            color: #fff; 
+            cursor: pointer; 
+        } 
+ 
+        .login-container input[type="submit"]:hover { 
+            background-color: #0056b3; 
+        } 
+ 
+        .login-container p { 
+            text-align: center; 
+            margin-top: 10px; 
+        } 
+ 
+        .login-container label { 
+            display: block; 
+            margin-bottom: 5px; 
+             
+        } 
+        #password:hover{ 
+            border-color: red; 
+             
+             
+        } 
+        #register_id:hover{ 
+            border-color: red; 
+             
+        } 
+        #account_number:hover{ 
+            border-color: red; 
+             
+        } 
+ #secret_question:hover{ 
+    border-color: red; 
+     
+ } 
+      #secret_answer:hover{ 
+        border-color: red; 
+     
+      } fieldset{ 
+        border-radius: 25px 25px 30px 30px ; 
+        box-shadow: red; 
+      } 
+       
+    </style> 
+    <!-- <script src="../loginpageme/server.js"></script>  -->
+</head> 
+<body > <img src="../loginpageme/image.jpg" height="700px" width="900px"> 
+    <div class="login-container" style="margin-right: -1px;  margin-top: -720px;"> 
+       <marquee  behavior="scroll" direction="left" scrollamount="0" style=" background-color: rgb(141, 184, 181); border-radius: 10px 10px 10px;"><h2> <i>Login</i></h2></marquee> 
+        <fieldset style="background-color:rgb(149, 157, 172);"> 
+        <form action="#" method="post" id="ddform"> 
+            <label for="account_number">Account Number:</label> 
+            <input type="text" id="account" name="accountnumber" pattern="[0-9]{1,10}" title="Please enter a valid account number." placeholder="Please Enter your Account Number" required> 
+        
+            <label for="register_id">Register ID:</label> 
+            <input type="text" id="register" name="regitserid" pattern="[0-9]{1,10}" title="Please enter a valid register ID." placeholder=" Please Enter your Register Id" required> 
+             
+            <label for="password">Password:</label> 
+            <input type="password" id="password" name="password"  title="Please enter a valid password." required> 
+             
+            <label for="secret_question">Secret Question:</label> 
+            <input type="text" id="secretquestion" name="secretquestion" value="What is the name of your childhood best friend?" title="Please enter a valid secret question." required readonly> 
+             
+            <label for="secret_answer">Secret Answer:</label> 
+            <input type="text" id="secretansw" name="secretanswer" pattern="[0-9a-zA-Z]{1,40}" title="Please enter a valid secret answer." required> 
+             
+            <label for="role">Role:</label> 
+            <select id="role1" name="role" required> 
+                <option value="">Select Role</option> 
+                <option value="user">User</option> 
+                <option value="admin">Admin</option>
+</select> 
+             
+            <input type="submit"  value="Login"> 
+        </form> 
+        <p>New user? <a href="../Registartion/index.html">Register here</a></p></fieldset> 
+
+        <script>
+            document.getElementById('ddform').addEventListener('submit', function(event) {
+              event.preventDefault(); // Prevent the form from submitting normally
+          
+
+
+              // Get form values
+              const requestData = {
+                accountnumber: document.getElementById('account').value,
+                regitserid: document.getElementById('register').value,
+                password: document.getElementById('password').value,
+                secretquestion: document.getElementById('secretquestion').value,
+                secretanswer: document.getElementById('secretansw').value,
+                role: document.getElementById('role1').value
+                
+              };
+          
+              // POST request using fetch
+              fetch('http://localhost:8080/loginRequest/save', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(requestData),
+              })
+              .then(response => response.json())
+              .then(data => {
+                console.log('Success:', data);
+                // Optionally, you can display a success message or redirect the user
+
+                if (requestData.role === 'admin' && requestData.accountnumber=== '987654321' && requestData.regitserid==='123456789' && requestData.password==='madhuriajay'&& requestData.secretanswer==='anju') {
+                      // Redirect to another page for admin
+                      window.location.href = '../admindashbord/adamin.html'; // Replace 'admin_page.html' with the actual URL of the admin page
+                  } else {
+                      // Handle redirection for other roles if needed
+                      window.location.href="../HomeUser/index.html"
+                  }
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+                // Optionally, you can display an error message to the user
+              });
+            });
+
+
+
+        //     const secretQuestions = [
+        //     "What is the name of your first pet?",
+        //     "What city were you born in?",
+        //     "What is your mother's maiden name?",
+        //     "What is your favorite movie?",
+        //     "What is your favorite book?",
+        //     "What is the name of your childhood best friend?"
+        //     // Add more secret questions as needed
+        // ];
+
+        // // Function to generate a random secret question
+        // function generateSecretQuestion() {
+        //     // Get a random index within the range of secretQuestions array length
+        //     const randomIndex = Math.floor(Math.random() * secretQuestions.length);
+        //     // Return the secret question at the random index
+        //     return secretQuestions[randomIndex];
+        // }
+
+        // // Display the generated secret question
+        // document.getElementById("secretquestion").value = generateSecretQuestion();
+        // Login route
+// Login route
+// app.post('/loginRequest/save', (req, res) => {
+//     const { accountnumber, registerid, password, secretanswer } = req.body;
+
+//     // Check if entered credentials match the correct ones
+//     if (
+//         accountnumber !== '987654321' ||
+//         registerid !== '123456789' ||
+//         password !== 'madhuriajay' ||
+//         secretanswer !== 'anjali'
+//     ) {
+//         return res.status(401).json({ error: 'Invalid credentials' });
+//     }
+
+//     // If credentials are correct, send success response
+//     res.status(200).json({ message: 'Login successful' });
+// });
+
+
+  
+          </script>
+          
+        </script>
+
+       
+      
+    </div> 
+</body> 
+</html> 
+

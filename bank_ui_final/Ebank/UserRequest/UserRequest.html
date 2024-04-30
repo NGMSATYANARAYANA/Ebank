@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!---Coding By CodingLab | www.codinglabweb.com--->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge" /> -->
+    <!--<title>Registration Form in HTML CSS</title>-->
+    <!---Custom CSS File--->
+    <style>/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  padding: 20px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+.container {
+  position: relative;
+  max-width: 500px;
+  width: 80%;
+  background:pink;
+  padding: 25px; 
+  border-radius: 8px 8px 8px 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.container header {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+}
+.container .form {
+  margin-top: 30px;
+}
+.form .input-box {
+  width: 100%;
+  margin-top: 20px;
+}
+.input-box label {
+  color: #333;
+}
+.form :where(.input-box input, .select-box) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+.input-box input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.form .column {
+  display: flex;
+  column-gap: 15px;
+}
+.form .gender-box {
+  margin-top: 20px;
+}
+.gender-box h3 {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.form :where(.gender-option, .gender) {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+  flex-wrap: wrap;
+}
+.form .gender {
+  column-gap: 5px;
+}
+.gender input {
+  accent-color: rgb(130, 106, 251);
+}
+.form :where(.gender input, .gender label) {
+  cursor: pointer;
+}
+.gender label {
+  color: #707070;
+}
+.address :where(input, .select-box) {
+  margin-top: 15px;
+}
+.select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: #707070;
+  font-size: 1rem;
+}
+.form button {
+  height: 55px;
+  width: 100%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgb(130, 106, 251);
+}
+.form button:hover {
+  background: rgb(88, 56, 250);
+}
+
+@media screen and (max-width: 500px) {
+  .form .column {
+    flex-wrap: wrap;
+  }
+  .form :where(.gender-option, .gender) {
+    row-gap: 15px;
+  }
+}
+</style>
+  </head>
+  <body onload="generateId()">
+    <section class="container">
+      <header>Account Request Form</header>
+      <form action="#" class="form" id="loanRequestForm">  
+        <div class="input-box">
+          <label>Request Id</label>
+          <input type="number" placeholder="Enter Id" pattern="[0-9]{1,10}" required name="reqid" id="Id" />
+        </div>
+       
+        <div class="input-box">
+            <label> Account Number</label>
+          <input type="number"  id="accnum" placeholder="Enter Account Number" name="accountnumber"  pattern="[0-9]{1,10}" required />
+          </div>
+      
+          <div class="input-box">
+            <label>Password</label>
+            <input type="password" placeholder="Set Your  Password" name="password" id="accexist"  required/>
+          </div>
+
+                   <div class="input-box">
+            <label>Secret Question</label>
+            <input type="text" value="What is the name of your childhood best friend?" name="secretquestion"  id="secques"readonly="true"/>
+          </div>
+          
+
+          <div class="input-box">
+            <label>Secret Answer</label>
+            <input type="text" placeholder="Enter Secret Answer" id="sean" name="secretanswer" required />
+          </div>
+          <div class="input-box">
+            <label>First Name</label>
+            <input type="text" placeholder="Enter First Name" id="fname" name="firstname" required />
+          </div>
+          <div class="input-box">
+            <label>Second Name</label>
+            <input type="text" placeholder="Enter Second Name" id="sname" name="secondname" required />
+          </div>
+          <div class="input-box">
+            <label>Sex</label>
+            <input type="text" placeholder="Enter Sex"  name="sex" id="Sex"  required />
+          </div>
+          <div class="input-box">
+            <label>Email Id</label>
+            <input type="email" placeholder="Enter email Id" id="email" name="emailid" required />
+          </div>
+          <div class="input-box">
+            <label>Residence Phone Number</label>
+            <input type="number" placeholder="Enter Residence Phone Number" id="rephone" pattern="[0-9a-zA-Z]{1,10}" name="residencephonenumber" required />
+          </div>
+          <div class="input-box">
+            <label>Office Phone Number</label>
+            <input type="number" placeholder="Enter Office Phone Number" id="offname"  pattern="[0-9]{1,10}" name="officephonenumber" required />
+          </div>
+          <div class="input-box">
+            <label>House Name</label>
+            <input type="text" placeholder="Enter House Name" id="hname" name="housename" required />
+          </div>
+          <div class="input-box">
+            <label>City</label>
+            <input type="text" placeholder="Enter City" id="City" name="city" required />
+          </div>
+          <div class="input-box">
+            <label>Branch</label>
+            <input type="text" placeholder="Enter Branch" name="branch" id="Branch"  required />
+          </div>
+          <div class="input-box">
+            <label>Age</label>
+            <input type="number" placeholder="Enter Age" id="age" pattern="[0-9]{1,10}" name="age" required />
+          </div>
+          
+          <div class="input-box">
+            <label>Country</label>
+            <input type="text" placeholder="Enter Country" id="Country1" name="country" required />
+          </div>
+  
+
+          <button type="submit">Submit</button>
+      </form>
+    </section>
+    
+    <script>
+      function generateId(){
+    var regId = Math.floor(100000000 + Math.random() * 900000000);
+   
+
+    const regIdElement = document.getElementById("accnum").value=regId;
+    
+    console.log(regId);
+    
+}
+      
+
+document.getElementById('loanRequestForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent the form from submitting normally
+
+  // Get form values
+  const requestData = {
+    reqid: document.getElementById('Id').value,
+    accountnumber: document.getElementById('accnum').value,
+    password: document.getElementById('accexist').value,
+    firstname: document.getElementById('fname').value,
+    secondname: document.getElementById('sname').value,
+    sex: document.getElementById('Sex').value,
+    emailid: document.getElementById('email').value,
+    residencephonenumber: document.getElementById('rephone').value,
+    officephonenumber: document.getElementById('offname').value,
+    housename: document.getElementById('hname').value,
+    secretquestion: document.getElementById('secques').value,
+    secretanswer: document.getElementById('sean').value,
+    city: document.getElementById('City').value,
+    branch: document.getElementById('Branch').value,
+    age: document.getElementById('age').value,
+    country: document.getElementById('Country1').value
+    
+  };
+
+  // POST request using fetch
+  fetch('http://localhost:8080/Request/save', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify(requestData),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Success:', data);
+    // Optionally, you can display a success message or redirect the user
+  })
+  .catch((error) => {
+    window.alert("Registration rejected...")
+    console.error('Error:', error);
+    // Optionally, you can display an error message to the user
+  });
+});
+
+</script>
+
+
+      
+    
+      
+
+</body>
+</html> 

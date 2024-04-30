@@ -1,0 +1,79 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+  <head> 
+    <meta charset="UTF-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" /> 
+  
+        <link rel="stylesheet" href="../Accountholderinfo/styel.css" /> 
+         
+  </head> 
+  <body> 
+    <section class="container"> 
+      <header><b>Account Holder Information</b></header> 
+      <form action="#" class="form" id="ddform"> 
+        <div class="input-box"> 
+          <label><b>Account Number</b></label> 
+          <input type="text" placeholder="Enter Account Number" id="request" name="accountnumber" required /> 
+        </div> 
+        <div class="input-box"> 
+            <label><b>Register Id</b></label> 
+            <input type="text" placeholder="Enter Register Id" id="account" name="registerid" required /> 
+          </div> 
+        <div class="input-box"> 
+          <label><b>Account Type</b></label> 
+          <input type="text" placeholder="Enter Account Type" id="ddnum" name="accounttype"  required /> 
+        </div> 
+        <div class="input-box"> 
+            <label> <b>Card Number</b></label> 
+            <input type="text" placeholder="Enter Card Number" id="infavor" name="cardnumber" required /> 
+          </div> 
+          <div class="input-box"> 
+            <label><b>Branch</b></label> 
+            <input type="text" placeholder="Enter Branch" id="Payable" name="branch" required /> 
+          </div> 
+          <div class="input-box"> 
+            <label><b>Balance</b></label> 
+            <input type="text" placeholder="Enter Balance"  id="Commission" name="balance" required /> 
+          </div> 
+           
+    <button>Submit</button> 
+      </form> 
+    </section> 
+    <script> 
+      document.getElementById('ddform').addEventListener('submit', function(event) { 
+        event.preventDefault(); // Prevent the form from submitting normally 
+     
+        // Get form values 
+        const requestData = { 
+          accountnumber: document.getElementById('request').value, 
+          registerid: document.getElementById('account').value, 
+          accounttype: document.getElementById('ddnum').value, 
+          cardnumber: document.getElementById('infavor').value, 
+          branch: document.getElementById('Payable').value, 
+          balance: document.getElementById('Commission').value, 
+           
+        }; 
+     
+        // POST request using fetch 
+        fetch('http://localhost:8080/account/holderinfo', { 
+          method: 'POST', 
+          headers: { 
+            'Content-Type': 'application/json', 
+            'Access-Control-Allow-Origin': '*' 
+          }, 
+          body: JSON.stringify(requestData), 
+        }) 
+        .then(response => response.json()) 
+        .then(data => { 
+          console.log('Success:', data); 
+          // Optionally, you can display a success message or redirect the user 
+        }) 
+        .catch((error) => { 
+          console.error('Error:', error); 
+          // Optionally, you can display an error message to the user 
+        }); 
+      }); 
+  </script> 
+  </body> 
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!---Coding By CodingLab | www.codinglabweb.com--->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--<t
+itle>Registration Form in HTML CSS</title>-->
+    <!---Custom CSS File--->
+    <link rel="stylesheet" href="../CheckRequest/checkreq.css" />
+  </head>
+  <body>
+    <section class="container">
+      <header>Check Request</header>
+      <form action="#" class="form" id="ddform">
+        <div class="input-box">
+          <label>Request id</label>
+          <input type="number" placeholder="Enter your  Register Id" id="request" name="requestid" required />
+        </div>
+        <div class="input-box">
+            <label>Account Number</label>
+            <input type="text" placeholder="Enter your Account Number" id="account" name="acctnumber" required />
+          </div>
+          <div class="input-box">
+            <label>Date</label>
+            <input type="date" placeholder="Enter date" id="ddnum" name="date" required />
+          </div>
+        <div class="input-box">
+            <label>Book Number</label>
+            <input type="number" placeholder="Enter your Book number" id="infavor" name="booknum" required />
+          </div>
+        <div class="input-box">
+          <label>Start Number</label>
+          <input type="number" placeholder="Enter start number" id="Payable" name="startnum" required />
+        </div>
+        <div class="column">
+          <div class="input-box">
+            <label>End Number</label>
+            <input type="number" placeholder="Enter end number" id="Commission" name="endnum" required />
+          </div>
+          <div class="input-box">
+            <label>status</label>
+            <input type="number" placeholder="enter status" id="Amount" name="status" required />
+          </div>
+          
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+
+<script>
+    document.getElementById('ddform').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the form from submitting normally
+  
+      // Get form values
+      const requestData = {
+        requestid: document.getElementById('request').value,
+        acctnumber: document.getElementById('account').value,
+        date: document.getElementById('ddnum').value,
+        booknum: document.getElementById('infavor').value,
+        startnum: document.getElementById('Payable').value,
+        endnum: document.getElementById('Commission').value,
+        status: document.getElementById('Amount').value,
+        
+      };
+  
+      // POST request using fetch
+      fetch('http://localhost:8080/checkrequest/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(requestData),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        // Optionally, you can display a success message or redirect the user
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Optionally, you can display an error message to the user
+      });
+    });
+  </script>
+  
+</script>
+<!-- <script src="ddform.js"></script> -->
+</body>
+</html>

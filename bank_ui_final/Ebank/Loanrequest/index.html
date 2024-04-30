@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoanRequestInformation</title>
+    <link rel="stylesheet" href="../Loanrequest/loan.css">
+    <!-- <script src="loanreq.js"></script> -->
+</head>
+<body>
+    <section class="container">
+          <header><b>LoanRequestInformation</b></header>
+          <form action="#" class="form" id="ddform">
+            <!--div class="input-box">
+              <label><b>Request Id</b></label>
+              <input type="text" placeholder="Enter Request " />
+            </div-->
+            <div class="input-box">
+              <label><b>RequestId</b></label>
+              <input type="text" name="requestid" id="request" placeholder="Enter RequestId" required />
+            </div>
+  
+            <div class="input-box">
+              <label><b>account number</b></label>
+              <input type="text" name="account"  id="accnum"placeholder="Enter Your account number " required />
+            </div>
+              <div class="input-box">
+                <label><b>cardnumber</b></label>
+                <input type="number" name="cardnumber" id="cardnumber1" placeholder="Enter cardnumber" required />
+              </div>
+              <div class="input-box">
+                <label><b>firstname</b></label>
+                <input type="text" name="firstname" id="fname" placeholder="Enter  your firstname" required />
+              </div>
+              <div class="input-box">
+                <label><b>secondname</b></label>
+                <input type="text" name="secondname" id="sname" placeholder="Enter secondname"  required />
+              </div>
+              <div class="input-box">
+                <label><b>profession</b></label>
+                <input type="text" name="profession" id="profe"  placeholder="Enter Your profession" required />
+              </div>
+              <div class="input-box">
+                <label><b>annualincome</b></label>
+                <input type="text" name="emailid" id="anlincome" placeholder="Enter Your emailid" required />
+              </div>
+              <div class="input-box">
+                <label><b>residencephonenumber</b></label>
+                <input type="text" name="residencephonenumber" id="rnum" placeholder="Enter Your residencephonenumber" required />
+              </div>
+              <div class="input-box">
+                <label><b>officephonenumber</b></label>
+                <input type="number" name="officephonenumber" id="onum" placeholder="Enter Your officephonenumber"  required />
+              </div>
+              <div class="input-box">
+                <label><b>housename</b></label>
+                <input type="text" name="housename" id="hname" placeholder="Enter Your housename" required />
+              </div>
+              <div class="input-box">
+                <label><b>city</b></label>
+                <input type="text" name="city" id="city1" placeholder="Enter Your city" required />
+              </div>
+              <div class="input-box">
+                <label><b>pin</b></label>
+                <input type="text" name="pin" id="pin1" placeholder="pin" required />
+              </div>
+              <div class="input-box">
+                <label><b>emailid</b></label>
+                <input type="email" name="emailid"id="email" placeholder="Enter Your emailid" required />
+              </div>
+              <div class="input-box">
+                <label><b> purpose</b></label>
+                <input type="text" name="purpose" id="pupose1" placeholder="Enter Your  purpose" required />
+              </div>
+              <div class="input-box">
+                <label><b>statues</b></label>
+                <input type="text" name="statues" id="statu" placeholder="Enter Your Statues " required />
+              </div>
+              
+              <button type="submit">Submit</button>
+          </form>
+        </section>
+        <script>
+          document.getElementById('ddform').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+        
+            // Get form values
+            const requestData = {
+              requestid: document.getElementById('request').value,
+              account: document.getElementById('accnum').value,
+              cardnumber: document.getElementById('cardnumber1').value,
+              firstname: document.getElementById('fname').value,
+              secondname: document.getElementById('sname').value,
+              profession: document.getElementById('profe').value,
+              annualincome: document.getElementById('anlincome').value,
+              residencephonenumber: document.getElementById('rnum').value,
+              officephonenumber: document.getElementById('onum').value,
+              housename: document.getElementById('hname').value,
+              city: document.getElementById('city1').value,
+              pin: document.getElementById('pin1').value,
+              emailid: document.getElementById('email').value,
+              purpose: document.getElementById('pupose1').value,
+              statues: document.getElementById('statu').value
+             
+            };
+        
+            // POST request using fetch
+            fetch('http://localhost:8080/loanrequests/save', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+              },
+              body: JSON.stringify(requestData),
+            })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Success:', data);
+              // Optionally, you can display a success message or redirect the user
+              alert("Registration Successfully.")
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+              // Optionally, you can display an error message to the user
+            });
+          });
+        </script>
+      
+        
+      </body>
+    </html> 
+</body>
+</html>

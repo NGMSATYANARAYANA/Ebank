@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!---Coding By CodingLab | www.codinglabweb.com--->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge" /> -->
+    <!--<title>Registration Form in HTML CSS</title>-->
+    <!---Custom CSS File--->
+    <style>/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  padding: 20px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+.container {
+  position: relative;
+  max-width: 500px;
+  width: 80%;
+  background:pink;
+  padding: 25px; 
+  border-radius: 8px 8px 8px 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.container header {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+}
+.container .form {
+  margin-top: 30px;
+}
+.form .input-box {
+  width: 100%;
+  margin-top: 20px;
+}
+.input-box label {
+  color: #333;
+}
+.form :where(.input-box input, .select-box) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+.input-box input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.form .column {
+  display: flex;
+  column-gap: 15px;
+}
+.form .gender-box {
+  margin-top: 20px;
+}
+.gender-box h3 {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.form :where(.gender-option, .gender) {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+  flex-wrap: wrap;
+}
+.form .gender {
+  column-gap: 5px;
+}
+.gender input {
+  accent-color: rgb(130, 106, 251);
+}
+.form :where(.gender input, .gender label) {
+  cursor: pointer;
+}
+.gender label {
+  color: #707070;
+}
+.address :where(input, .select-box) {
+  margin-top: 15px;
+}
+.select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: #707070;
+  font-size: 1rem;
+}
+.form button {
+  height: 55px;
+  width: 100%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgb(130, 106, 251);
+}
+.form button:hover {
+  background: rgb(88, 56, 250);
+}
+
+@media screen and (max-width: 500px) {
+  .form .column {
+    flex-wrap: wrap;
+  }
+  .form :where(.gender-option, .gender) {
+    row-gap: 15px;
+  }
+}
+</style>
+  </head>
+  <body onload="generateId()">
+    <section class="container">
+      <header>Transaction information </header>
+      <form action="#" class="form" id="loanRequestForm">  
+        <div class="input-box">
+          <label>Transaction Id</label>
+          <!-- <input type="number"  id="accnum" placeholder="Enter Account Number" name="accountnumber" value = "${accountnumber}" pattern="[0-9]{1,10}" required /> -->
+
+          <input type="number" id="Id" placeholder="Enter Transaction Id" pattern="[0-9]{1,10}"  name="transactionid" value = "${transactionid}" />
+        </div>
+        <div class="input-box">
+          <label>Account number
+            </label>
+          <input type="number" placeholder=" Enter Account number" id="accexist" pattern="[0-9]{1,10}" required name="accountnumber"/>
+        </div>
+        <div class="input-box">
+            <label> Transaction_date</label>
+            <input type="date" placeholder="Enter Transaction_date" name="accountnumber" id="accnum" pattern="[0-9]{1,10}" name="transactiondate" required />
+          </div>
+          <div class="input-box">
+            <label>Debit_Amount</label>
+            <input type="number" placeholder="Enter Debit_Amount" id="cardnum" name="cardnumber" pattern="[0-9a-zA-Z]{1,10}"required name="debitamount"/>
+          </div>
+          <div class="input-box">
+            <label>Credit_Amount</label>
+            <input type="number" placeholder="Enter Credit_Amount" name="creditamount" id="sean">
+          </div>
+          <button onclick="loanreq()" type="submit">Submit</button>
+      </form>
+    </section>
+    <script>
+          function generateId(){
+    var regId = Math.floor(1000000 + Math.random() * 9000000);
+   
+
+    const regIdElement = document.getElementById("Id").value=regId;
+    
+    console.log(regId);
+    
+}
+      function loanreq(){
+        document.getElementById('loanRequestForm').addEventListener('submit', function(event) {
+          event.preventDefault(); // Prevent the form from submitting normally
+      
+          // Get form input values
+          var Id = document.getElementById('Id').value;
+          var aaccountexisting = document.getElementById('accexist').value;
+          var accountnumber = document.getElementById('accnum').value;
+          var cardnumber = document.getElementById('cardnum').value;
+          var sean = document.getElementById('sean').value;
+          
+      
+          // Construct user data object
+          var formData = new FormData(document.getElementById("loanRequestForm"));
+          var userData = {
+            transactionid: Id,
+            accountnumber: aaccountexisting,
+            transactiondate: accountnumber,
+            debitamount: cardnumber,
+            creditamount: sean,
+           
+           
+          };
+      
+          // API endpoint URL
+          var url = 'http://localhost:8080/transRequest/save';
+        
+          // Send POST request to the API
+          fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*' // Allow CORS, make sure the server supports it
+              },
+              body: JSON.stringify(userData)
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+             
+             
+            })
+            .then(data => {
+              console.log(data); // Log response data to console
+              // Handle the response from the API as needed
+            })
+            .catch(error => {
+              console.error('Error:', error); // Log any errors to console
+            });
+        });
+      }
+      </script>
+      
+
+</body>
+</html> 

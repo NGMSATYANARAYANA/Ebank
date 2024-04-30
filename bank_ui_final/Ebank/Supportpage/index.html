@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="../Supportpage/style.css">
+    <title>Bank Support</title>
+    </head>
+        <body>
+            <div class="a">
+            <header>
+        <h1>US Bank Support</h1>
+    </header>
+
+
+    <section>
+        <h2>Contact Us</h2>
+
+
+        <p>If you have any questions or concerns, please fill out the form below:</p>
+
+
+        <form action="#" method="post" id="support">
+            <label for="name">Name:</label>
+            <input type="text" id="name1" name="name" required>
+
+
+            <label for="email">Email:</label>
+            <input type="email" name="emailid" id="emailid1" required>
+
+
+            <label for="message">Message:</label>
+            <textarea type="textarea" id="message1" name="meassage"></textarea>
+
+
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+</div>
+<script>
+
+document.getElementById('support').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent the form from submitting normally
+
+  // Get form values
+  const requestData = {
+    name: document.getElementById('name1').value,
+    emailid: document.getElementById('emailid1').value,
+    message: document.getElementById('message1').value
+    
+  };
+
+  // POST request using fetch
+  fetch('http://localhost:8080/support/save', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify(requestData),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Success:', data);
+    // Optionally, you can display a success message or redirect the user
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    // Optionally, you can display an error message to the user
+  });
+});
+</script>
+
+</script>
+
+
+
+</body>
+</html>
